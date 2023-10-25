@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -5,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Link from 'next/link';
+import { useSession, signOut } from 'next-auth/react';
 
 interface HeaderProps {
   backgroundColor: string;
@@ -18,6 +20,11 @@ interface AppBarStyle {
 }
 
 const Header: React.FC<HeaderProps> = ({ backgroundColor, isSticky }) => {
+    const session = useSession();
+
+    console.log(session)
+
+
   const appBarStyle: AppBarStyle = {
     backgroundColor,
     position: isSticky ? 'sticky' : 'static',
@@ -51,14 +58,17 @@ const Header: React.FC<HeaderProps> = ({ backgroundColor, isSticky }) => {
             </Link>
           </li>
           <li style={{ margin: '0 16px' }}>
-            <Link href="/chart" style={linkStyle}>
-              Chart
+            <Link href="/posts" style={linkStyle}>
+              Posts
             </Link>
           </li>
           <li style={{ margin: '0 16px' }}>
-            <Link href="/storybook" style={linkStyle}>
-              Storybook
-            </Link>
+            {session?.data && (
+                <Link href={'/profile'}>Profile</Link>
+            )}
+          </li>
+          <li style={{ margin: '0 16px' }}>
+                {session?.data ? <Link href={'#'} onClick={() => signOut({callbackUrl:"/"})}>Sign out</Link> : <Link href={'/api/auth/signin'}>Sing In</Link>}
           </li>
         </ul>
       </Toolbar>

@@ -1,5 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 const Characters: React.FC = () => {
   const [characters, setCharacters] = useState<any[]>([]);
@@ -24,7 +25,15 @@ const Characters: React.FC = () => {
     <div>
       <ul>
         {characters.map((character) => (
-          <li key={character.id}>{character.name}</li>
+          <li key={character.id}>
+            <Image
+              src={character.image}
+              alt={character.name}
+              width={200}
+              height={200}
+            />            
+            <p>{character.name}</p>
+          </li>
         ))}
       </ul>
     </div>
