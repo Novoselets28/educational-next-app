@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,24 +11,27 @@ import { useSession, signOut } from 'next-auth/react';
 interface HeaderProps {
   backgroundColor: string;
   isSticky: boolean;
+  marginBottom: number;
 }
 
 interface AppBarStyle {
   backgroundColor: string;
   position: 'static' | 'sticky';
   top: number;
+  marginBottom: number;
 }
 
-const Header: React.FC<HeaderProps> = ({ backgroundColor, isSticky }) => {
+const Header: React.FC<HeaderProps> = ({ backgroundColor, isSticky, marginBottom }) => {
     const session = useSession();
 
     console.log(session)
 
-
   const appBarStyle: AppBarStyle = {
     backgroundColor,
     position: isSticky ? 'sticky' : 'static',
-    top: 0
+    top: 0,
+    marginBottom: 15,
+
   };
 
   const linkStyle = {
@@ -68,7 +71,7 @@ const Header: React.FC<HeaderProps> = ({ backgroundColor, isSticky }) => {
             )}
           </li>
           <li style={{ margin: '0 16px' }}>
-                {session?.data ? <Link href={'#'} onClick={() => signOut({callbackUrl:"/"})}>Sign out</Link> : <Link href={'/api/auth/signin'}>Sing In</Link>}
+                {session?.data ? <Link href={'#'} onClick={() => signOut({callbackUrl:"/"})}>Sign out</Link> : <Link href={'/signin'}>Sing In</Link>}
           </li>
         </ul>
       </Toolbar>

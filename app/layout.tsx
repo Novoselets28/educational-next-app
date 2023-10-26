@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
-          <Header backgroundColor={''} isSticky={false}/>
+          <Header backgroundColor={''} isSticky={false} marginBottom={0}/>
           <main>
             {children}
           </main>
